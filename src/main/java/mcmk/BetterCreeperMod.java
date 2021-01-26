@@ -1,28 +1,22 @@
 package mcmk;
 
-
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.ExplosionEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -36,9 +30,6 @@ public class BetterCreeperMod {
 	//public static final String VERSION = "1.0.0";
 
     private static final Logger LOGGER = LogManager.getLogger();
-    
-    
-    //private static BetterCreeperMod instance;
 
     public BetterCreeperMod() {
     	
@@ -67,16 +58,11 @@ public class BetterCreeperMod {
         	World world = event.getWorld();
         	
         	if (world.isRemote == false) {
-        		LOGGER.warn("Server World");
-
-	        	//Dist
-	        	//LogicalSide
-	        	//DistExecutor
+        		//LOGGER.info("Server World");
 	        	
 	        	BlockPos blockPos = explosion.getExploder().getPosition();
 	        	BlockState blockStateDown = world.getBlockState(blockPos.down());
 	        	BlockState blockState = world.getBlockState(blockPos);
-	        	
 	            Block flower = getRandomFlowerBlock();
 	                        
 	            //check if block can placed
@@ -89,13 +75,14 @@ public class BetterCreeperMod {
 	        		explosion.getExploder().entityDropItem(flower);
 	        	}
         	
-        	}else {
-        		LOGGER.warn("Client World");
+        	//}else {
+        		//LOGGER.info("Client World");
         	}
         }
     }
     
-    private Block getRandomFlowerBlock() {
+    private Block getRandomFlowerBlock() 
+    {
 		Random random = new Random();
 		
 		Block[] flowers = {Blocks.DANDELION, Blocks.POPPY, Blocks.BLUE_ORCHID, 

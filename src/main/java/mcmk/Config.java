@@ -2,23 +2,17 @@ package mcmk;
 
 import com.electronwill.nightconfig.core.file.CommentedFileConfig;
 import com.electronwill.nightconfig.core.io.WritingMode;
-
 import net.minecraftforge.common.ForgeConfigSpec;
-
-import java.io.File;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class Config {
 
-	
-	public static final String CATEGORY_GENERAL = "General configuration";
+		public static final String CATEGORY_GENERAL = "General configuration";
 	public static final String CATEGORY_SETTINGS = "Better Creeper Mod";
 	
 	private static final ForgeConfigSpec.Builder COMMON_BUILDER = new ForgeConfigSpec.Builder();
 	
 	public static ForgeConfigSpec COMMON_CONFIG;
-	
 	public static ForgeConfigSpec.BooleanValue DISABLE_BLOCK_DAMAGE;
 	public static ForgeConfigSpec.BooleanValue DISABLE_ITEM_DAMAGE;
 	public static ForgeConfigSpec.BooleanValue DISABLE_PLAYER_DAMAGE;
@@ -30,9 +24,6 @@ public class Config {
 		COMMON_BUILDER.pop();
 		
 		setupFirstBlockConfig();
-		
-		//COMMON_BUILDER.comment("mod settings").push(CATEGORY_MOD);
-		//COMMON_BUILDER.pop();
 		
 		COMMON_CONFIG = COMMON_BUILDER.build();
 	}
