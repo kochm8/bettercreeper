@@ -7,7 +7,7 @@ import java.nio.file.Path;
 
 public class Config {
 
-		public static final String CATEGORY_GENERAL = "General configuration";
+	public static final String CATEGORY_GENERAL = "General configuration";
 	public static final String CATEGORY_SETTINGS = "Better Creeper Mod";
 	
 	private static final ForgeConfigSpec.Builder COMMON_BUILDER = new ForgeConfigSpec.Builder();
