@@ -14,9 +14,8 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.world.ExplosionEvent;
+import net.minecraftforge.event.level.ExplosionEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -27,9 +26,6 @@ import net.minecraftforge.fml.loading.FMLPaths;
 public class BetterCreeperMod {
 	
 	public static final String MOD_ID = "bettercreeper";
-	//public static final String NAME = "Better Creeper Mod";
-	//public static final String VERSION = "1.1.0";
-    //private static final Logger LOGGER = LogManager.getLogger();
 
     public BetterCreeperMod() {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_CONFIG);
@@ -40,7 +36,6 @@ public class BetterCreeperMod {
     @SubscribeEvent
     public void onExplosionDetonate(ExplosionEvent.Detonate event)
     {
-    	//LOGGER.info("onExplosionDetonate");
     	Explosion explosion = event.getExplosion();
     	
     	//check if creeper explodes
@@ -57,21 +52,21 @@ public class BetterCreeperMod {
         		this.removeItemEntities(event.getAffectedEntities());
         	}
       	
-        	Level world = event.getWorld();
+        	Level world = event.getLevel();
         	
-        	if (world.isClientSide() == false) {
-        		//LOGGER.info("Server World");
-	        	
+        	if (world.isClientSide() == false) {        	
 	        	BlockPos blockPos = explosion.getExploder().blockPosition();
 	        	BlockState blockStateDown = world.getBlockState(blockPos.below());
 	        	BlockState blockState = world.getBlockState(blockPos);
 	            Block flower = getRandomFlowerBlock();
-	            
+	                        
 	            //check if flower can placed
 	        	if( blockState.getBlock() == Blocks.AIR && (
 	        		blockStateDown.getBlock() == Blocks.GRASS_BLOCK ||
 	        		blockStateDown.getBlock() == Blocks.DIRT ||
-	        		blockStateDown.getBlock() == Blocks.COARSE_DIRT )) {
+	        		blockStateDown.getBlock() == Blocks.COARSE_DIRT ||
+	        		blockStateDown.getBlock() == Blocks.MUD ||
+	        		blockStateDown.getBlock() == Blocks.MUDDY_MANGROVE_ROOTS)) {
 	        		//place flower
 	                BlockPos blockPosition = explosion.getExploder().blockPosition();                     
 	                world.setBlockAndUpdate(blockPosition, flower.defaultBlockState());
@@ -80,8 +75,6 @@ public class BetterCreeperMod {
 	        		explosion.getExploder().spawnAtLocation(flower);
 	        	}
         	
-        	//}else {
-        		//LOGGER.info("Client World");
         	}
         } 
     }

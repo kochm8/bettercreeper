@@ -26,10 +26,10 @@ modId="bettercreeper" #mandatory
 # see the associated build.gradle script for how to populate this completely automatically during a build
 # version="${file.jarVersion}" #mandatory
 
-version="1.18 - 1.1.0"
+version="1.19.2 - 1.2.1"
 
  # A display name for the mod
-displayName="Better Creeper Mod" #mandatory
+displayName="Bettercreeper" #mandatory
 
 # A URL to query for updates for this mod. See the JSON update specification https://mcforge.readthedocs.io/en/latest/gettingstarted/autoupdate/
 #updateJSONURL="https://change.me.example.invalid/updates.json" #optional
@@ -39,7 +39,7 @@ displayName="Better Creeper Mod" #mandatory
 logoFile="bettercreeper.png" #optional
 
 # A text field displayed in the mod UI
-credits="(c) mcmk 2021" #optional
+credits="(c) mcmk 2022" #optional
 
 # A text field displayed in the mod UI
 authors="mcmk" #optional
