@@ -3,8 +3,9 @@ package mcmk;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
+//import org.apache.logging.log4j.LogManager;
+//import org.apache.logging.log4j.Logger;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
@@ -51,30 +52,32 @@ public class BetterCreeperMod {
         		//prevent item damage
         		this.removeItemEntities(event.getAffectedEntities());
         	}
-      	
-        	Level world = event.getLevel();
         	
-        	if (world.isClientSide() == false) {        	
-	        	BlockPos blockPos = explosion.getExploder().blockPosition();
-	        	BlockState blockStateDown = world.getBlockState(blockPos.below());
-	        	BlockState blockState = world.getBlockState(blockPos);
-	            Block flower = getRandomFlowerBlock();
-	                        
-	            //check if flower can placed
-	        	if( blockState.getBlock() == Blocks.AIR && (
-	        		blockStateDown.getBlock() == Blocks.GRASS_BLOCK ||
-	        		blockStateDown.getBlock() == Blocks.DIRT ||
-	        		blockStateDown.getBlock() == Blocks.COARSE_DIRT ||
-	        		blockStateDown.getBlock() == Blocks.MUD ||
-	        		blockStateDown.getBlock() == Blocks.MUDDY_MANGROVE_ROOTS)) {
-	        		//place flower
-	                BlockPos blockPosition = explosion.getExploder().blockPosition();                     
-	                world.setBlockAndUpdate(blockPosition, flower.defaultBlockState());
-	        	}else {
-	        		//instead drop it
-	        		explosion.getExploder().spawnAtLocation(flower);
-	        	}
-        	
+        	if (Config.ENABLE_FLOWER_SPAWN.get()) {
+        		//Spawn flower
+            	Level world = event.getLevel();
+            	
+            	if (world.isClientSide() == false) {        	
+    	        	BlockPos blockPos = explosion.getExploder().blockPosition();
+    	        	BlockState blockStateDown = world.getBlockState(blockPos.below());
+    	        	BlockState blockState = world.getBlockState(blockPos);
+    	            Block flower = this.getRandomFlowerBlock();
+    	                        
+    	            //check if flower can placed
+    	        	if( blockState.getBlock() == Blocks.AIR && (
+    	        		blockStateDown.getBlock() == Blocks.GRASS_BLOCK ||
+    	        		blockStateDown.getBlock() == Blocks.DIRT ||
+    	        		blockStateDown.getBlock() == Blocks.COARSE_DIRT ||
+    	        		blockStateDown.getBlock() == Blocks.MUD ||
+    	        		blockStateDown.getBlock() == Blocks.MUDDY_MANGROVE_ROOTS)) {
+    	        		//place flower
+    	                BlockPos blockPosition = explosion.getExploder().blockPosition();                     
+    	                world.setBlockAndUpdate(blockPosition, flower.defaultBlockState());
+    	        	}else {
+    	        		//instead drop it
+    	        		explosion.getExploder().spawnAtLocation(flower);
+    	        	}
+            	}
         	}
         } 
     }
@@ -104,15 +107,4 @@ public class BetterCreeperMod {
             }
         }
     }
-    
-    /*
-    private static boolean setBlock(Level world, BlockPos pos, BlockState blockState) {
-        if (world.isOutsideBuildHeight(pos)) {
-            return false;
-        } else {
-            LevelChunk chunk = world.getChunkAt(pos);
-            world.markAndNotifyBlock(pos, chunk, blockState, blockState, 2, 3);
-            return true;
-        }
-    }*/
 }

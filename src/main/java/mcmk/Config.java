@@ -15,7 +15,7 @@ public class Config {
 	public static ForgeConfigSpec COMMON_CONFIG;
 	public static ForgeConfigSpec.BooleanValue DISABLE_BLOCK_DAMAGE;
 	public static ForgeConfigSpec.BooleanValue DISABLE_ITEM_DAMAGE;
-	public static ForgeConfigSpec.BooleanValue DISABLE_PLAYER_DAMAGE;
+	public static ForgeConfigSpec.BooleanValue ENABLE_FLOWER_SPAWN;
 	
 	
 	static {
@@ -30,7 +30,7 @@ public class Config {
 	
 	private static void setupFirstBlockConfig() {
 		
-		COMMON_BUILDER.comment("Creeper damage settings").push(CATEGORY_SETTINGS);
+		COMMON_BUILDER.comment("Mod settings").push(CATEGORY_SETTINGS);
 	
 		DISABLE_BLOCK_DAMAGE = COMMON_BUILDER.comment("Disable creepers block damage")
 				.define("DisableBlockDamage", true);
@@ -38,8 +38,8 @@ public class Config {
 		DISABLE_ITEM_DAMAGE = COMMON_BUILDER.comment("Disable creepers item damage")
 				.define("DisableItemDamage", true);
 		
-		//DISABLE_PLAYER_DAMAGE = COMMON_BUILDER.comment("Disable creepers player damage")
-		//		.define("DisablePlayerDamage", false);
+		ENABLE_FLOWER_SPAWN = COMMON_BUILDER.comment("Enable creepers to spwan flowers")
+				.define("FlowerSpawn", true);
 			
 		COMMON_BUILDER.pop();
 	}
