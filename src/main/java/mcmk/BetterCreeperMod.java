@@ -23,10 +23,10 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.loading.FMLPaths;
 
-@Mod(BetterCreeperMod.MOD_ID)
+@Mod(BetterCreeperMod.MODID)
 public class BetterCreeperMod {
 	
-	public static final String MOD_ID = "bettercreeper";
+	public static final String MODID = "bettercreeper";
 
     public BetterCreeperMod() {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_CONFIG);
