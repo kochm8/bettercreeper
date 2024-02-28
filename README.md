@@ -5,7 +5,6 @@
 ### Features:
 * Prevent block damage by creepers
 * Prevent item damage by creepers
-* Grows or drops a random flower instead
 * Still causes player damage
  
 ### Installation notice:
