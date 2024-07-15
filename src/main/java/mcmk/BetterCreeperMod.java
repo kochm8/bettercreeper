@@ -38,9 +38,10 @@ public class BetterCreeperMod {
     public void onExplosionDetonate(ExplosionEvent.Detonate event)
     {
     	Explosion explosion = event.getExplosion();
-    	
+    
     	//check if creeper explodes
-        if (explosion.getExploder() instanceof Creeper)
+    	
+        if (explosion.getDirectSourceEntity() instanceof Creeper)
         {
         	
         	if (Config.DISABLE_BLOCK_DAMAGE.get()) {
@@ -58,7 +59,7 @@ public class BetterCreeperMod {
             	Level world = event.getLevel();
             	
             	if (world.isClientSide() == false) {        	
-    	        	BlockPos blockPos = explosion.getExploder().blockPosition();
+    	        	BlockPos blockPos = explosion.getDirectSourceEntity().blockPosition();
     	        	BlockState blockStateDown = world.getBlockState(blockPos.below());
     	        	BlockState blockState = world.getBlockState(blockPos);
     	            Block flower = this.getRandomFlowerBlock();
@@ -71,15 +72,16 @@ public class BetterCreeperMod {
     	        		blockStateDown.getBlock() == Blocks.MUD ||
     	        		blockStateDown.getBlock() == Blocks.MUDDY_MANGROVE_ROOTS)) {
     	        		//place flower
-    	                BlockPos blockPosition = explosion.getExploder().blockPosition();                     
+    	                BlockPos blockPosition = explosion.getDirectSourceEntity().blockPosition();                     
     	                world.setBlockAndUpdate(blockPosition, flower.defaultBlockState());
     	        	}else {
     	        		//instead drop it
-    	        		explosion.getExploder().spawnAtLocation(flower);
+    	        		explosion.getDirectSourceEntity().spawnAtLocation(flower);
     	        	}
             	}
         	}
         } 
+        
     }
     
     private Block getRandomFlowerBlock() 
