@@ -8,6 +8,7 @@ import java.util.Random;
 //import org.apache.logging.log4j.Logger;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Creeper;
@@ -18,9 +19,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.level.ExplosionEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
 
 @Mod(BetterCreeperMod.MODID)
@@ -28,8 +29,8 @@ public class BetterCreeperMod {
 	
 	public static final String MODID = "bettercreeper";
 
-    public BetterCreeperMod() {
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_CONFIG);
+    public BetterCreeperMod(FMLJavaModLoadingContext context) {
+    	context.registerConfig(ModConfig.Type.COMMON, Config.COMMON_CONFIG);
         Config.loadConfig(Config.COMMON_CONFIG, FMLPaths.CONFIGDIR.get().resolve("bettercreeper-common.toml"));
         MinecraftForge.EVENT_BUS.register(this);
     }
@@ -40,13 +41,12 @@ public class BetterCreeperMod {
     	Explosion explosion = event.getExplosion();
     
     	//check if creeper explodes
-    	
         if (explosion.getDirectSourceEntity() instanceof Creeper)
         {
         	
         	if (Config.DISABLE_BLOCK_DAMAGE.get()) {
         		//clear block damage
-        		explosion.clearToBlow();
+        		event.getAffectedBlocks().clear();
         	}
         	
         	if (Config.DISABLE_ITEM_DAMAGE.get()) {
@@ -76,7 +76,9 @@ public class BetterCreeperMod {
     	                world.setBlockAndUpdate(blockPosition, flower.defaultBlockState());
     	        	}else {
     	        		//instead drop it
-    	        		explosion.getDirectSourceEntity().spawnAtLocation(flower);
+    	        		if (event.getLevel() instanceof ServerLevel serverLevel) {
+    	        		    explosion.getDirectSourceEntity().spawnAtLocation(serverLevel, flower.asItem());
+    	        		}
     	        	}
             	}
         	}
