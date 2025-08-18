@@ -3,10 +3,8 @@ package mcmk;
 import com.electronwill.nightconfig.core.file.CommentedFileConfig;
 import com.electronwill.nightconfig.core.io.WritingMode;
 import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.fml.common.Mod;
 import java.nio.file.Path;
 
-@Mod.EventBusSubscriber(modid = BetterCreeperMod.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class Config {
 
 	public static final String CATEGORY_GENERAL = "General configuration";

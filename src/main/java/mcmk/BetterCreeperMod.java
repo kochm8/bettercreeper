@@ -3,7 +3,6 @@ package mcmk;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
-
 //import org.apache.logging.log4j.LogManager;
 //import org.apache.logging.log4j.Logger;
 
@@ -16,9 +15,7 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.level.ExplosionEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -32,10 +29,10 @@ public class BetterCreeperMod {
     public BetterCreeperMod(FMLJavaModLoadingContext context) {
     	context.registerConfig(ModConfig.Type.COMMON, Config.COMMON_CONFIG);
         Config.loadConfig(Config.COMMON_CONFIG, FMLPaths.CONFIGDIR.get().resolve("bettercreeper-common.toml"));
-        MinecraftForge.EVENT_BUS.register(this);
+
+        ExplosionEvent.Detonate.BUS.addListener(this::onExplosionDetonate);
     }
     
-    @SubscribeEvent
     public void onExplosionDetonate(ExplosionEvent.Detonate event)
     {
     	Explosion explosion = event.getExplosion();
